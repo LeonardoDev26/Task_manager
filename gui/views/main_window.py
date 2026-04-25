@@ -1,5 +1,5 @@
 import tkinter as tk
-from services.task_service import get_tasks, create_task, delete_task
+from services.task_service import get_tasks, create_task, delete_task, complete_task
 
 
 class MainWindow:
@@ -30,6 +30,14 @@ class MainWindow:
         )
         self.delete_button.pack(pady=5)
 
+        # BOTÓN COMPLETAR ✅
+        self.complete_button = tk.Button(
+            self.root,
+            text="Completar tarea",
+            command=self.complete_task
+        )
+        self.complete_button.pack(pady=5)
+
         # LISTA
         self.task_listbox = tk.Listbox(self.root, width=50)
         self.task_listbox.pack(pady=20)
@@ -38,11 +46,14 @@ class MainWindow:
         self.load_tasks()
 
     def load_tasks(self):
-        self.task_listbox.delete(0, tk.END)  # limpiar antes de cargar
+        self.task_listbox.delete(0, tk.END)
         tasks = get_tasks()
 
         for task in tasks:
-            self.task_listbox.insert(tk.END, f"{task[0]} - {task[1]}")
+            estado = "✔️" if task[4] == 1 else "❌"
+            self.task_listbox.insert(
+                tk.END, f"{task[0]} - {task[1]} [{estado}]"
+            )
 
     def add_task(self):
         title = self.title_entry.get()
@@ -50,7 +61,7 @@ class MainWindow:
         date = self.date_entry.get()
 
         if not title:
-            return  # evitar tareas vacías
+            return
 
         create_task(title, description, date)
 
@@ -65,15 +76,29 @@ class MainWindow:
         selected = self.task_listbox.curselection()
 
         if not selected:
-            return  # si no hay selección, no hace nada
+            return
 
         index = selected[0]
         task_text = self.task_listbox.get(index)
 
-        # obtener ID
         task_id = int(task_text.split(" - ")[0])
 
         delete_task(task_id)
+
+        self.load_tasks()
+
+    def complete_task(self):
+        selected = self.task_listbox.curselection()
+
+        if not selected:
+            return
+
+        index = selected[0]
+        task_text = self.task_listbox.get(index)
+
+        task_id = int(task_text.split(" - ")[0])
+
+        complete_task(task_id)
 
         self.load_tasks()
 
