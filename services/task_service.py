@@ -27,7 +27,7 @@ def delete_task(task_id):
     conn = get_connection()
     cursor = conn.cursor()
 
-    cursor.execute("DELETE FROM task WHERE id = ?", (task_id,))
+    cursor.execute("DELETE FROM tasks WHERE id = ?", (task_id,))
 
     conn.commit()
     conn.close()
