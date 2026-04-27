@@ -4,21 +4,26 @@
     <meta charset="UTF-8">
     <title>Task Manager</title>
     <link rel="stylesheet" href="styles.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
-    <h1>📝 Task Manager</h1>
+    <div class="container">
+        <h1>📝 Task Manager</h1>
 
-    <div class="form">
-        <input type="text" id="title" placeholder="Título">
-        <input type="text" id="description" placeholder="Descripción">
-        <input type="text" id="date" placeholder="Fecha">
+        <!-- FORMULARIO -->
+        <div class="form">
+            <input id="title" type="text" placeholder="Título">
+            <input id="description" type="text" placeholder="Descripción">
+            <input id="date" type="text" placeholder="Fecha">
 
-        <button onclick="addTask()">Agregar tarea</button>
+            <button class="add-btn" onclick="addTask()">
+                Agregar tarea
+            </button>
+        </div>
+
+        <!-- LISTA -->
+        <ul id="task-list" class="task-list"></ul>
     </div>
-
-    <ul id="taskList"></ul>
 
     <script src="app.js"></script>
 </body>
