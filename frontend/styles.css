@@ -1,3 +1,19 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.light {
+    font-weight: 200;
+}
+
+.regular {
+    font-weight: 300;
+}
+
+.normal {
+    font-weight: 400;
+}
+
 :root {
 
     --bg-color: #1e1e2f;
@@ -12,7 +28,7 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     background: var(--bg-color);
     color: var(--text-color);
     margin: 0;

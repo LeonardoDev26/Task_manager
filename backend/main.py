@@ -22,8 +22,15 @@ class TaskCreate(BaseModel):
 def read_tasks():
     return get_tasks()
 
+from pydantic import BaseModel
+
+class Task(BaseModel):
+    title: str
+    description: str
+    date: str
+
 @app.post("/tasks")
-def add_task(task: TaskCreate):
+def add_task(task: Task):
     create_task(task.title, task.description, task.date)
     return {"message": "Task created"}
 
